@@ -1,6 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './scss/base.scss'
+import { DefaultProvider } from '@store/DefaultContext'
 import Game from './Game'
 
-ReactDOM.render(<Game />, document.getElementById('root'))
+ReactDOM.render(
+  <DefaultProvider
+    initialState={{
+      status: 'in progress'
+    }}
+  >
+    <Game />
+  </DefaultProvider>,
+  document.getElementById('root')
+)
