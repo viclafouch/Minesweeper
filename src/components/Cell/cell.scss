@@ -10,8 +10,9 @@
   justify-content: center;
   font-size: 1.5em;
   outline: none;
+  box-sizing: border-box;
 
-  .is-visible {
+  &.is-revealed {
     border: 1px solid #f0f0f0;
   }
 }
