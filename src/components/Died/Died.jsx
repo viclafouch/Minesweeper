@@ -3,8 +3,9 @@ import './died.scss'
 import { randomIntFromInterval } from '@utils/index'
 
 function Died({ hasLost, retry, isVolumeEnabled, status }) {
-  const [isShowingRetry, setIsShowingRetry] = useState(false)
+  const [isShowingActions, setIsShowingActions] = useState(false)
   const [audio, setAudio] = useState(1)
+  const [forceHide, setForceHide] = useState(false)
   const audioA = useRef(null)
   const audioB = useRef(null)
 
@@ -34,7 +35,7 @@ function Died({ hasLost, retry, isVolumeEnabled, status }) {
     if (hasLost) {
       if (audio === 1) {
         audioACurrent.play()
-        timeout = setTimeout(() => setIsShowingRetry(true), 6000)
+        timeout = setTimeout(() => setIsShowingActions(true), 6000)
       }
       if (audio === 2) {
         audioBCurrent.play()
@@ -46,18 +47,24 @@ function Died({ hasLost, retry, isVolumeEnabled, status }) {
       if (audioBCurrent) audioBCurrent.pause()
       audioACurrent.currentTime = 0
       audioBCurrent.currentTime = 0
-      setIsShowingRetry(false)
+      setIsShowingActions(false)
+      setForceHide(false)
     }
   }, [audio, hasLost])
 
   return (
     <>
-      <div className={`Died ${hasLost && audio === 1 ? 'show' : ''}`}>
+      <div className={`Died ${hasLost && audio === 1 && !forceHide ? 'show' : ''}`}>
         <span className="Died-text">You Died</span>
-        {isShowingRetry && (
-          <button type="button" onClick={retry}>
-            Retry
-          </button>
+        {isShowingActions && (
+          <>
+            <button type="button" onClick={retry} className="retry-button">
+              Retry
+            </button>
+            <button type="button" onClick={() => setForceHide(true)} className="see-result-button">
+              See result
+            </button>
+          </>
         )}
       </div>
 

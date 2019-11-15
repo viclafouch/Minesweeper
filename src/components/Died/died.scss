@@ -31,6 +31,12 @@
     &:active {
       background-color: lighten($color: #444444, $amount: 30);
     }
+
+    &.see-result-button {
+      bottom: auto;
+      top: 30px;
+      right: 30px;
+    }
   }
 
   &.show {
