@@ -7,7 +7,7 @@ function Mine(props) {
   const getValue = () => {
     if (isDebugging) {
       if (value.isMine) return '💣'
-      return value.mines
+      return value.mines ? value.mines : ''
     }
     if (!value.isRevealed) return value.isFlagged ? '🚩' : null
     if (value.isMine) return '💣'
