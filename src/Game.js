@@ -9,6 +9,18 @@ import { SET_OPTIONS, SET_STATUS } from '@store/reducer/constants'
 
 function Game() {
   const [{ status, options, isVolumeEnabled }, dispatch] = useContext(DefaultContext)
+
+  const resetGame = () => {
+    dispatch({
+      type: SET_OPTIONS,
+      options: null
+    })
+    dispatch({
+      type: SET_STATUS,
+      status: 'in progress'
+    })
+  }
+
   return (
     <div className="Game">
       <div className="container-game">
@@ -21,21 +33,8 @@ function Game() {
         )}
       </div>
 
-      <Died
-        hasLost={status === 'lost'}
-        isVolumeEnabled={isVolumeEnabled}
-        retry={() => {
-          dispatch({
-            type: SET_OPTIONS,
-            options: null
-          })
-          dispatch({
-            type: SET_STATUS,
-            status: 'in progress'
-          })
-        }}
-      />
-      <Won hasWon={status === 'won'} isVolumeEnabled={isVolumeEnabled} />
+      <Died hasLost={status === 'lost'} isVolumeEnabled={isVolumeEnabled} retry={resetGame} />
+      <Won hasWon={status === 'won'} isVolumeEnabled={isVolumeEnabled} reset={resetGame} />
     </div>
   )
 }

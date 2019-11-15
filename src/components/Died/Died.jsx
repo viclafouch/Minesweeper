@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useCallback } from 'react'
 import './died.scss'
 import { randomIntFromInterval } from '@utils/index'
 
@@ -7,6 +7,20 @@ function Died({ hasLost, retry, isVolumeEnabled }) {
   const [audio, setAudio] = useState(1)
   const audioA = useRef(null)
   const audioB = useRef(null)
+
+  const handleEscap = useCallback(
+    e => {
+      if (e.keyCode === 27) retry()
+    },
+    [retry]
+  )
+
+  useEffect(() => {
+    if (hasLost) document.body.addEventListener('keydown', handleEscap)
+    return () => {
+      document.body.removeEventListener('keydown', handleEscap)
+    }
+  }, [handleEscap, hasLost])
 
   useEffect(() => {
     if (!isVolumeEnabled) return
