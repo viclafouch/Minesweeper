@@ -61,15 +61,19 @@ function Board({ x: w, y: h, mines }) {
 
   const handleAddFlag = (e, item) => {
     e.preventDefault()
-    if (item.isRevealed || item.isFlagged || !options.flags || isDebugging) return null
+    if (item.isRevealed || isDebugging) return null
+    if (!item.isFlagged && !options.flags) return
     const updatedRows = [...rows]
-    updatedRows[item.x][item.y].isFlagged = true
+    updatedRows[item.x][item.y].isFlagged = !updatedRows[item.x][item.y].isFlagged
+    let nbFlagged = options.flags
+    if (updatedRows[item.x][item.y].isFlagged) nbFlagged -= 1
+    else nbFlagged += 1
     setRows(updatedRows)
     dispatch({
       type: SET_OPTIONS,
       options: {
         ...options,
-        flags: options.flags - 1
+        flags: nbFlagged
       }
     })
   }
