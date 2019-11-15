@@ -69,14 +69,16 @@ body {
     border: 0;
     font-size: 2.2em;
     background-color: #1E1E1E;
-    color: #ffffff;
+    color: darkgray;
+    cursor: default;
 
     &[type="button"] {
       border: 1px solid #f0f0f0;
       font-size: 2em;
       color: #F1F1F1;
 
-      &:active {
+      &:active,
+      &:focus {
         background-color: lighten($color: #1E1E1E, $amount: 10);
       }
     }

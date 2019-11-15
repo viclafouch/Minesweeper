@@ -31,13 +31,13 @@ function Menu() {
   return (
     <div className="Menu">
       <div>Choose difficulty</div>
-      <button type="button" onClick={() => handleClick(1)}>
+      <button type="button" onClick={() => handleClick(1)} tabIndex="0">
         Easy
       </button>
-      <button type="button" onClick={() => handleClick(2)}>
+      <button type="button" onClick={() => handleClick(2)} tabIndex="0">
         Medium
       </button>
-      <button type="button" onClick={() => handleClick(3)}>
+      <button type="button" onClick={() => handleClick(3)} tabIndex="0">
         Hard
       </button>
     </div>

@@ -18,7 +18,7 @@ function Mine(props) {
   return (
     <div
       onClick={onClick}
-      onKeyDown={onClick}
+      onKeyPress={event => event.key === 'Enter' && onClick()}
       onContextMenu={onContextMenu}
       className={`Cell ${value.isRevealed ? 'is-revealed' : ''}`}
       tabIndex="0"
