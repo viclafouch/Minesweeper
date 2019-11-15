@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react'
 import './died.scss'
 import { randomIntFromInterval } from '@utils/index'
+import cEtaitSurEnfait from './c-etait-sur-enfait.mp4'
 
 function Died({ hasLost, retry, isVolumeEnabled, status }) {
   const [isShowingActions, setIsShowingActions] = useState(false)
-  const [audio, setAudio] = useState(1)
+  const [audio, setAudio] = useState(randomIntFromInterval(1, 3))
   const [forceHide, setForceHide] = useState(false)
   const audioA = useRef(null)
   const audioB = useRef(null)
@@ -24,15 +25,15 @@ function Died({ hasLost, retry, isVolumeEnabled, status }) {
   }, [handleEscape, hasLost])
 
   useEffect(() => {
-    if (!isVolumeEnabled || status !== 'in progress') return
-    setAudio(randomIntFromInterval(1, 2))
-  }, [hasLost, isVolumeEnabled, status])
+    if (!isVolumeEnabled) setAudio(null)
+    else if (status === 'in progress') setAudio(randomIntFromInterval(1, 3))
+  }, [isVolumeEnabled, status])
 
   useEffect(() => {
-    const audioACurrent = audioA.current
-    const audioBCurrent = audioB.current
-    let timeout
     if (hasLost) {
+      const audioACurrent = audioA.current
+      const audioBCurrent = audioB.current
+      let timeout
       if (audio === 1) {
         audioACurrent.play()
         timeout = setTimeout(() => setIsShowingActions(true), 6000)
@@ -40,15 +41,15 @@ function Died({ hasLost, retry, isVolumeEnabled, status }) {
       if (audio === 2) {
         audioBCurrent.play()
       }
-    }
-    return () => {
-      clearTimeout(timeout)
-      if (audioACurrent) audioACurrent.pause()
-      if (audioBCurrent) audioBCurrent.pause()
-      audioACurrent.currentTime = 0
-      audioBCurrent.currentTime = 0
-      setIsShowingActions(false)
-      setForceHide(false)
+      return () => {
+        clearTimeout(timeout)
+        if (audioACurrent) audioACurrent.pause()
+        if (audioBCurrent) audioBCurrent.pause()
+        audioACurrent.currentTime = 0
+        audioBCurrent.currentTime = 0
+        setIsShowingActions(false)
+        setForceHide(false)
+      }
     }
   }, [audio, hasLost])
 
@@ -67,6 +68,15 @@ function Died({ hasLost, retry, isVolumeEnabled, status }) {
           </>
         )}
       </div>
+      {hasLost && audio === 3 && (
+        <div className="miniplayer-died">
+          <p>REPLAY ! (fake)</p>
+          <video className="" autoPlay>
+            <track default kind="captions" />
+            <source src={cEtaitSurEnfait} type="video/mp4" />
+          </video>
+        </div>
+      )}
 
       <audio ref={audioA} src="https://www.myinstants.com/media/sounds/dark-souls-_you-died_-sound-effect-from-youtube.mp3">
         <track default kind="captions" />
