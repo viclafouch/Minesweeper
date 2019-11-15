@@ -9,7 +9,7 @@ function Menu() {
     if (difficulty === 1) {
       options.x = 6
       options.y = 6
-      options.mines = 5
+      options.mines = 1
     } else if (difficulty === 2) {
       options.x = 8
       options.y = 8
