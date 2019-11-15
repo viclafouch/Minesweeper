@@ -58,6 +58,14 @@ function Board({ x: w, y: h, mines }) {
     return updatedRows
   }
 
+  const handleAddFlag = (e, item) => {
+    e.preventDefault()
+    if (item.isRevealed || item.isFlagged) return null
+    const updatedRows = [...rows]
+    updatedRows[item.x][item.y].isFlagged = true
+    setRows(updatedRows)
+  }
+
   const handleSelectCell = item => {
     let updatedRows = [...rows]
     if (item.isRevealed || item.isFlagged) return null
@@ -95,7 +103,12 @@ function Board({ x: w, y: h, mines }) {
       <div className="Board" style={{ '--columns': h, '--rows': w }}>
         {rows.map(row =>
           row.map(item => (
-            <Cell key={item.x * row.length + item.y} onClick={() => handleSelectCell(item)} cMenu={() => {}} value={item} />
+            <Cell
+              key={item.x * row.length + item.y}
+              onClick={() => handleSelectCell(item)}
+              onContextMenu={e => handleAddFlag(e, item)}
+              value={item}
+            />
           ))
         )}
       </div>

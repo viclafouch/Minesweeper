@@ -2,7 +2,7 @@ import React from 'react'
 import './cell.scss'
 
 function Mine(props) {
-  const { value, onClick, cMenu } = props
+  const { value, onClick, onContextMenu } = props
 
   const getValue = () => {
     if (!value.isRevealed) return value.isFlagged ? '🚩' : null
@@ -15,7 +15,7 @@ function Mine(props) {
     <div
       onClick={onClick}
       onKeyDown={onClick}
-      onContextMenu={cMenu}
+      onContextMenu={onContextMenu}
       className={`Cell ${value.isRevealed ? 'is-revealed' : ''}`}
       tabIndex="0"
       role="button"
