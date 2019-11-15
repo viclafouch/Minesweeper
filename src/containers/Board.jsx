@@ -40,7 +40,7 @@ function Board({ x: w, y: h, mines }) {
     setRows(
       rows.map(row =>
         row.map(item => {
-          item.isRevealed = true
+          item.isVisible = true
           return item
         })
       )
@@ -51,8 +51,8 @@ function Board({ x: w, y: h, mines }) {
     const updatedRows = [...rows]
     const area = getAreaItem({ x: item.x, y: item.y, w, h, rows })
     for (const siblingItems of area) {
-      if (!siblingItems.isRevealed && !siblingItems.isFlagged && (siblingItems.isEmpty || !siblingItems.isMine)) {
-        updatedRows[siblingItems.x][siblingItems.y].isRevealed = true
+      if (!siblingItems.isVisible && !siblingItems.isFlagged && (siblingItems.isEmpty || !siblingItems.isMine)) {
+        updatedRows[siblingItems.x][siblingItems.y].isVisible = true
         if (siblingItems.isEmpty) showEmptyItem(siblingItems)
       }
     }
@@ -61,7 +61,7 @@ function Board({ x: w, y: h, mines }) {
 
   const handleAddFlag = (e, item) => {
     e.preventDefault()
-    if (item.isRevealed || isDebugging) return null
+    if (item.isVisible || isDebugging) return null
     if (!item.isFlagged && !options.flags) return
     const updatedRows = [...rows]
     updatedRows[item.x][item.y].isFlagged = !updatedRows[item.x][item.y].isFlagged
@@ -80,7 +80,7 @@ function Board({ x: w, y: h, mines }) {
 
   const handleSelectCell = item => {
     let updatedRows = [...rows]
-    if (item.isRevealed || isDebugging) return null
+    if (item.isVisible || isDebugging) return null
     if (item.isMine) {
       dispatch({
         type: SET_STATUS,
@@ -91,7 +91,7 @@ function Board({ x: w, y: h, mines }) {
     }
 
     setAudio(null)
-    updatedRows[item.x][item.y].isRevealed = true
+    updatedRows[item.x][item.y].isVisible = true
     if (updatedRows[item.x][item.y].isFlagged) {
       updatedRows[item.x][item.y].isFlagged = false
       dispatch({
@@ -105,7 +105,7 @@ function Board({ x: w, y: h, mines }) {
 
     if (item.isEmpty) updatedRows = showEmptyItem(item)
 
-    const notVisibleCells = updatedRows.flat(1).filter(i => !i.isRevealed)
+    const notVisibleCells = updatedRows.flat(1).filter(i => !i.isVisible)
 
     if (notVisibleCells.length === mines) {
       dispatch({

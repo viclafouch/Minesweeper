@@ -9,7 +9,7 @@ function Mine(props) {
       if (value.isMine) return '💣'
       return value.mines ? value.mines : ''
     }
-    if (!value.isRevealed) return value.isFlagged ? '🚩' : null
+    if (!value.isVisible) return value.isFlagged ? '🚩' : null
     if (value.isMine) return '💣'
     if (value.mines === 0) return null
     return value.mines
@@ -20,7 +20,7 @@ function Mine(props) {
       onClick={onClick}
       onKeyPress={event => event.key === 'Enter' && onClick()}
       onContextMenu={onContextMenu}
-      className={`Cell ${value.isRevealed ? 'is-revealed' : ''}`}
+      className={`Cell ${value.isVisible ? 'is-revealed' : ''}`}
       tabIndex="0"
       role="button"
     >

@@ -27,7 +27,7 @@ export const initBoard = (h, w, mines) => {
         isMine: false,
         mines: 0,
         isEmpty: true,
-        isRevealed: false,
+        isVisible: false,
         isFlagged: false
       }
     }
