@@ -4,23 +4,32 @@ import { TOGGLE_DEBUGGING, TOGGLE_AUDIO } from '@store/reducer/constants'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faVolumeUp, faVolumeMute } from '@fortawesome/free-solid-svg-icons'
 
-function Controls() {
-  const [{ options, isDebugging, isVolumeEnabled }, dispatch] = useContext(DefaultContext)
+function Controls({ reset }) {
+  const [{ options, isDebugging, isVolumeEnabled, status }, dispatch] = useContext(DefaultContext)
+
   return (
     <div className="Controls">
       <div>
         <span>{options.flags} 🚩</span>
       </div>
-      <button
-        type="button"
-        onClick={() =>
-          dispatch({
-            type: TOGGLE_DEBUGGING
-          })
-        }
-      >
-        {`${isDebugging ? 'Hide' : 'Show'} grid`}
-      </button>
+      {status === 'in progress' && (
+        <button
+          type="button"
+          onClick={() =>
+            dispatch({
+              type: TOGGLE_DEBUGGING
+            })
+          }
+        >
+          {`${isDebugging ? 'Hide' : 'Show'} grid`}
+        </button>
+      )}
+      {status !== 'in progress' && (
+        <button type="button" onClick={reset}>
+          Reset
+        </button>
+      )}
+
       <button
         type="button"
         onClick={() =>

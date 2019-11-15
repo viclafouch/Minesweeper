@@ -11,6 +11,8 @@ function Game() {
   const [{ status, options, isVolumeEnabled }, dispatch] = useContext(DefaultContext)
 
   const resetGame = () => {
+    console.log('reset')
+
     dispatch({
       type: SET_OPTIONS,
       options: null
@@ -27,14 +29,14 @@ function Game() {
         {!options && <Menu />}
         {options && (
           <div className="container-game-wrapper">
-            <Controls />
+            <Controls reset={resetGame} />
             <Board x={options.x} y={options.y} mines={options.mines} />
           </div>
         )}
       </div>
 
-      <Died hasLost={status === 'lost'} isVolumeEnabled={isVolumeEnabled} retry={resetGame} />
-      <Won hasWon={status === 'won'} isVolumeEnabled={isVolumeEnabled} reset={resetGame} />
+      <Died hasLost={status === 'lost'} isVolumeEnabled={isVolumeEnabled} retry={() => resetGame()} />
+      <Won hasWon={status === 'won'} isVolumeEnabled={isVolumeEnabled} reset={() => resetGame()} />
     </div>
   )
 }

@@ -1,26 +1,18 @@
 import React, { useContext } from 'react'
 import { DefaultContext } from '@store/DefaultContext'
 import { SET_OPTIONS } from '@store/reducer/constants'
+import { EASY_GAME, NORMAL_GAME, HARD_GAME } from '@/constants'
 
 function Menu() {
   const [, dispatch] = useContext(DefaultContext)
   const handleClick = difficulty => {
-    const options = {}
+    let options = {}
     if (difficulty === 1) {
-      options.x = 6
-      options.y = 6
-      options.mines = 4
-      options.flags = 5
+      options = { ...EASY_GAME }
     } else if (difficulty === 2) {
-      options.x = 8
-      options.y = 8
-      options.mines = 10
-      options.flags = 15
+      options = { ...NORMAL_GAME }
     } else if (difficulty === 3) {
-      options.x = 10
-      options.y = 10
-      options.mines = 12
-      options.flags = 25
+      options = { ...HARD_GAME }
     }
     dispatch({
       type: SET_OPTIONS,
