@@ -1,2 +1,4 @@
 export const SET_STATUS = 'SET_STATUS'
 export const SET_OPTIONS = 'SET_OPTIONS'
+export const TOGGLE_DEBUGGING = 'TOGGLE_DEBUGGING'
+export const TOGGLE_AUDIO = 'TOGGLE_AUDIO'

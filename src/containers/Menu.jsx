@@ -10,14 +10,17 @@ function Menu() {
       options.x = 6
       options.y = 6
       options.mines = 1
+      options.flags = 5
     } else if (difficulty === 2) {
       options.x = 8
       options.y = 8
       options.mines = 10
+      options.flags = 15
     } else if (difficulty === 3) {
       options.x = 10
       options.y = 10
       options.mines = 12
+      options.flags = 25
     }
     dispatch({
       type: SET_OPTIONS,

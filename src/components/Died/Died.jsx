@@ -2,15 +2,16 @@ import React, { useEffect, useRef, useState } from 'react'
 import './died.scss'
 import { randomIntFromInterval } from '@utils/index'
 
-function Died({ hasLost, retry }) {
+function Died({ hasLost, retry, isVolumeEnabled }) {
   const [isShowingRetry, setIsShowingRetry] = useState(false)
   const [audio, setAudio] = useState(1)
   const audioA = useRef(null)
   const audioB = useRef(null)
 
   useEffect(() => {
+    if (!isVolumeEnabled) return
     setAudio(randomIntFromInterval(1, 2))
-  }, [hasLost])
+  }, [hasLost, isVolumeEnabled])
 
   useEffect(() => {
     const audioACurrent = audioA.current

@@ -21,14 +21,35 @@ body {
   }
 }
 
+.container-game-wrapper {
+  margin-left: auto;
+  margin-right: auto;
+
+  & > .Board {
+    width: 500px;
+    height: 500px;
+  }
+
+  & > .Controls {
+    width: 100%;
+    margin-bottom: 1em;;
+  }
+}
 
 .Board {
   display: grid;
   grid-template-rows: repeat(var(--rows), 1fr);
   grid-template-columns: repeat(var(--columns), 1fr);
-  width: 500px;
-  height: 500px;
-  margin: 0 auto;
+}
+
+.Controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    margin-left: auto;
+  }
 }
 
 .Menu {

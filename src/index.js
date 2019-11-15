@@ -4,11 +4,15 @@ import './scss/base.scss'
 import { DefaultProvider } from '@store/DefaultContext'
 import Game from './Game'
 
+const isVolumeEnabled = localStorage.getItem('isVolumeEnabled')
+
 ReactDOM.render(
   <DefaultProvider
     initialState={{
       status: 'in progress',
-      options: null
+      options: null,
+      isDebugging: false,
+      isVolumeEnabled: isVolumeEnabled === undefined ? true : isVolumeEnabled === 'true'
     }}
   >
     <Game />

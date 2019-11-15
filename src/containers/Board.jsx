@@ -2,7 +2,7 @@ import React, { useState, useContext, useRef, useLayoutEffect } from 'react'
 import Cell from '@components/Cell/Cell'
 import { initBoard, getAreaItem } from '@utils/helpers'
 import { DefaultContext } from '@store/DefaultContext'
-import { SET_STATUS } from '@store/reducer/constants'
+import { SET_STATUS, SET_OPTIONS } from '@store/reducer/constants'
 import { randomIntFromInterval } from '@utils'
 
 function Board({ x: w, y: h, mines }) {
@@ -12,9 +12,10 @@ function Board({ x: w, y: h, mines }) {
   const audioC = useRef(null)
   const audioD = useRef(null)
   const [rows, setRows] = useState(initBoard(w, h, mines))
-  const [, dispatch] = useContext(DefaultContext)
+  const [{ options, isDebugging, isVolumeEnabled }, dispatch] = useContext(DefaultContext)
 
   useLayoutEffect(() => {
+    if (!isVolumeEnabled) return
     const audioACurrent = audioA.current
     const audioBCurrent = audioB.current
     const audioCCurrent = audioC.current
@@ -33,7 +34,7 @@ function Board({ x: w, y: h, mines }) {
       audioCCurrent.currentTime = 0
       audioDCurrent.currentTime = 0
     }
-  }, [audio])
+  }, [audio, isVolumeEnabled])
 
   const showResult = () => {
     setRows(
@@ -60,15 +61,22 @@ function Board({ x: w, y: h, mines }) {
 
   const handleAddFlag = (e, item) => {
     e.preventDefault()
-    if (item.isRevealed || item.isFlagged) return null
+    if (item.isRevealed || item.isFlagged || !options.flags || isDebugging) return null
     const updatedRows = [...rows]
     updatedRows[item.x][item.y].isFlagged = true
     setRows(updatedRows)
+    dispatch({
+      type: SET_OPTIONS,
+      options: {
+        ...options,
+        flags: options.flags - 1
+      }
+    })
   }
 
   const handleSelectCell = item => {
     let updatedRows = [...rows]
-    if (item.isRevealed || item.isFlagged) return null
+    if (item.isRevealed || item.isFlagged || isDebugging) return null
     if (item.isMine) {
       dispatch({
         type: SET_STATUS,
@@ -104,6 +112,7 @@ function Board({ x: w, y: h, mines }) {
         {rows.map(row =>
           row.map(item => (
             <Cell
+              isDebugging={isDebugging}
               key={item.x * row.length + item.y}
               onClick={() => handleSelectCell(item)}
               onContextMenu={e => handleAddFlag(e, item)}

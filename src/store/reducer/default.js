@@ -1,5 +1,5 @@
 import { debug } from '../../utils/index'
-import { SET_STATUS, SET_OPTIONS } from './constants'
+import { SET_STATUS, SET_OPTIONS, TOGGLE_DEBUGGING, TOGGLE_AUDIO } from './constants'
 
 const DefaultReducer = (state, action) => {
   debug(`TCL: DefaultReducer -> type : ${action.type}`)
@@ -16,6 +16,18 @@ const DefaultReducer = (state, action) => {
       return {
         ...state,
         options
+      }
+    case TOGGLE_DEBUGGING:
+      debug(`TCL: DefaultReducer -> set debugging to ${!state.isDebugging}`)
+      return {
+        ...state,
+        isDebugging: !state.isDebugging
+      }
+    case TOGGLE_AUDIO:
+      debug(`TCL: DefaultReducer -> set debugging to ${!state.isVolumeEnabled}`)
+      return {
+        ...state,
+        isVolumeEnabled: !state.isVolumeEnabled
       }
     default:
       return state

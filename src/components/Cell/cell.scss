@@ -11,6 +11,8 @@
   font-size: 1.5em;
   outline: none;
   box-sizing: border-box;
+  cursor: default;
+  user-select: none;
 
   &.is-revealed {
     border: 1px solid #f0f0f0;

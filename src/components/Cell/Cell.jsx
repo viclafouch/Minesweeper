@@ -2,9 +2,13 @@ import React from 'react'
 import './cell.scss'
 
 function Mine(props) {
-  const { value, onClick, onContextMenu } = props
+  const { value, isDebugging, onClick, onContextMenu } = props
 
   const getValue = () => {
+    if (isDebugging) {
+      if (value.isMine) return '💣'
+      return value.mines
+    }
     if (!value.isRevealed) return value.isFlagged ? '🚩' : null
     if (value.isMine) return '💣'
     if (value.mines === 0) return null
