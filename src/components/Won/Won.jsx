@@ -2,7 +2,7 @@ import React, { useEffect, useCallback } from 'react'
 import './won.scss'
 
 function Won({ hasWon, isVolumeEnabled, reset }) {
-  const handleEscap = useCallback(
+  const handleEscape = useCallback(
     e => {
       if (e.keyCode === 27) reset()
     },
@@ -10,11 +10,11 @@ function Won({ hasWon, isVolumeEnabled, reset }) {
   )
 
   useEffect(() => {
-    if (hasWon) document.body.addEventListener('keydown', handleEscap)
+    if (hasWon) document.body.addEventListener('keydown', handleEscape)
     return () => {
-      document.body.removeEventListener('keydown', handleEscap)
+      document.body.removeEventListener('keydown', handleEscape)
     }
-  }, [handleEscap, hasWon])
+  }, [handleEscape, hasWon])
 
   return (
     <div className={`Won ${hasWon ? 'show' : ''}`}>

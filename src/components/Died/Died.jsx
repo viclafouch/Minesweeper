@@ -8,7 +8,7 @@ function Died({ hasLost, retry, isVolumeEnabled }) {
   const audioA = useRef(null)
   const audioB = useRef(null)
 
-  const handleEscap = useCallback(
+  const handleEscape = useCallback(
     e => {
       if (e.keyCode === 27) retry()
     },
@@ -16,11 +16,11 @@ function Died({ hasLost, retry, isVolumeEnabled }) {
   )
 
   useEffect(() => {
-    if (hasLost) document.body.addEventListener('keydown', handleEscap)
+    if (hasLost) document.body.addEventListener('keydown', handleEscape)
     return () => {
-      document.body.removeEventListener('keydown', handleEscap)
+      document.body.removeEventListener('keydown', handleEscape)
     }
-  }, [handleEscap, hasLost])
+  }, [handleEscape, hasLost])
 
   useEffect(() => {
     if (!isVolumeEnabled) return
