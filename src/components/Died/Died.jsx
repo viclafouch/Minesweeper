@@ -44,6 +44,8 @@ function Died({ hasLost, retry, isVolumeEnabled, status }) {
       clearTimeout(timeout)
       if (audioACurrent) audioACurrent.pause()
       if (audioBCurrent) audioBCurrent.pause()
+      audioACurrent.currentTime = 0
+      audioBCurrent.currentTime = 0
       setIsShowingRetry(false)
     }
   }, [audio, hasLost])

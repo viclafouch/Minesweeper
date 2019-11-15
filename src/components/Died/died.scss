@@ -17,7 +17,6 @@
 
   .Died-text {
     transform: scale(0);
-    transition: transform 10s;
   }
 
   button {
@@ -39,6 +38,7 @@
     opacity: 1;
 
     .Died-text {
+      transition: transform 10s;
       transform: scale(10);
     }
   }
