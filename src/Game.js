@@ -11,8 +11,6 @@ function Game() {
   const [{ status, options, isVolumeEnabled }, dispatch] = useContext(DefaultContext)
 
   const resetGame = () => {
-    console.log('reset')
-
     dispatch({
       type: SET_OPTIONS,
       options: null
@@ -35,8 +33,8 @@ function Game() {
         )}
       </div>
 
-      <Died hasLost={status === 'lost'} isVolumeEnabled={isVolumeEnabled} retry={() => resetGame()} />
-      <Won hasWon={status === 'won'} isVolumeEnabled={isVolumeEnabled} reset={() => resetGame()} />
+      <Died hasLost={status === 'lost'} status={status} isVolumeEnabled={isVolumeEnabled} retry={() => resetGame()} />
+      <Won hasWon={status === 'won'} status={status} isVolumeEnabled={isVolumeEnabled} reset={() => resetGame()} />
     </div>
   )
 }
