@@ -51,7 +51,7 @@ function Board({ x: w, y: h, mines }) {
     const updatedRows = [...rows]
     const area = getAreaItem({ x: item.x, y: item.y, w, h, rows })
     for (const siblingItems of area) {
-      if (!siblingItems.isRevealed && (siblingItems.isEmpty || !siblingItems.isMine)) {
+      if (!siblingItems.isRevealed && !siblingItems.isFlagged && (siblingItems.isEmpty || !siblingItems.isMine)) {
         updatedRows[siblingItems.x][siblingItems.y].isRevealed = true
         if (siblingItems.isEmpty) showEmptyItem(siblingItems)
       }
@@ -80,7 +80,7 @@ function Board({ x: w, y: h, mines }) {
 
   const handleSelectCell = item => {
     let updatedRows = [...rows]
-    if (item.isRevealed || item.isFlagged || isDebugging) return null
+    if (item.isRevealed || isDebugging) return null
     if (item.isMine) {
       dispatch({
         type: SET_STATUS,
@@ -92,7 +92,16 @@ function Board({ x: w, y: h, mines }) {
 
     setAudio(null)
     updatedRows[item.x][item.y].isRevealed = true
-    updatedRows[item.x][item.y].isFlagged = false
+    if (updatedRows[item.x][item.y].isFlagged) {
+      updatedRows[item.x][item.y].isFlagged = false
+      dispatch({
+        type: SET_OPTIONS,
+        options: {
+          ...options,
+          flags: options.flags + 1
+        }
+      })
+    }
 
     if (item.isEmpty) updatedRows = showEmptyItem(item)
 
