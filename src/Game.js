@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import Won from '@components/Won/Won'
-import Header from '@components/Header/Header'
 import Died from '@components/Died/Died'
 import { DefaultContext } from '@store/DefaultContext'
 import Board from '@containers/Board'
@@ -12,7 +11,6 @@ function Game() {
   const [{ status, options, isVolumeEnabled }, dispatch] = useContext(DefaultContext)
   return (
     <div className="Game">
-      <Header />
       <div className="container-game">
         {!options && <Menu />}
         {options && (
