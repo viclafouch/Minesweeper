@@ -7,7 +7,8 @@ import Game from './Game'
 ReactDOM.render(
   <DefaultProvider
     initialState={{
-      status: 'in progress'
+      status: 'in progress',
+      options: null
     }}
   >
     <Game />

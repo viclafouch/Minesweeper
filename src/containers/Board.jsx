@@ -46,14 +46,22 @@ function Board({ x: w, y: h, mines }) {
     updatedRows[item.x][item.y].isRevealed = true
     updatedRows[item.x][item.y].isFlagged = false
 
-    if (item.isEmpty) {
-      updatedRows = showEmptyItem(item)
+    if (item.isEmpty) updatedRows = showEmptyItem(item)
+
+    const notVisibleCells = updatedRows.flat(1).filter(i => !i.isRevealed)
+
+    if (notVisibleCells.length === mines) {
+      dispatch({
+        type: SET_STATUS,
+        status: 'won'
+      })
     }
+
     setRows(updatedRows)
   }
 
   return (
-    <div className="board" style={{ '--columns': h, '--rows': w }}>
+    <div className="Board" style={{ '--columns': h, '--rows': w }}>
       {rows.map(row =>
         row.map(item => (
           <Cell key={item.x * row.length + item.y} onClick={() => handleSelectCell(item)} cMenu={() => {}} value={item} />
