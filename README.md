@@ -14,7 +14,7 @@ A complete minesweeper game built with React (hooks)
 - [ ] Counting Time.
 - [x] Set flags.
 - [x] Quick mode and mode switch.
-- [ ] Settings save in cookie.
+- [x] Settings save in storage.
 - [ ] Multiplayer
 - [ ] Replay
 
