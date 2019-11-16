@@ -6,6 +6,8 @@ A complete minesweeper game built with React (hooks)
 
 ![screenshot](screenshot.png)
 
+Speed coding video (part 2) : https://youtu.be/DBI50PiZwAE 
+
 ---
 
 ### TODO
