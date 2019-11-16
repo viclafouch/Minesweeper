@@ -2,6 +2,8 @@
 
 A complete minesweeper game built with React (hooks)
 
+Speed coding video (part 2) : https://youtu.be/DBI50PiZwAE 
+
 [Play Now!](https://admiring-davinci-96f9e2.netlify.com/)
 
 ![screenshot](screenshot.png)
