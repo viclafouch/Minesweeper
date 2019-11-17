@@ -30,10 +30,7 @@ cd cheerzorboom
 npm install
 npm start
 ```
-Head to [localhost:3000](localhost:3000).
-
-#### `Blocks`:
-An immutable Map represent the whole game board blocks, with `BlockRecord` as keys and `Block` as values.
+Head to [localhost:3000](http://localhost:3000/).
 
 ### Contribute
 Issues, PRs, and all the advise and discussion are very welcome !
