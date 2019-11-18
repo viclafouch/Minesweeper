@@ -1,7 +1,7 @@
 import React from 'react'
 import './cell.scss'
 
-function Mine(props) {
+function Cell(props) {
   const { value, isDebugging, onClick, onContextMenu } = props
 
   const getValue = () => {
@@ -29,4 +29,4 @@ function Mine(props) {
   )
 }
 
-export default Mine
+export default Cell
