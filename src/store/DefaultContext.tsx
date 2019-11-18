@@ -9,13 +9,13 @@ export interface State {
   isVolumeEnabled: boolean
 }
 
-const isVolumeEnabled: string | undefined = localStorage.getItem('isVolumeEnabled')
+const isVolumeEnabled: string | null = localStorage.getItem('isVolumeEnabled')
 
 const initialState: State = {
   status: 'in progress',
   options: null,
   isDebugging: false,
-  isVolumeEnabled: isVolumeEnabled === undefined ? true : isVolumeEnabled === 'true'
+  isVolumeEnabled: !isVolumeEnabled ? true : isVolumeEnabled === 'true'
 }
 
 export const DefaultContext = createContext<State | any>(initialState)
