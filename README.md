@@ -2,7 +2,7 @@
 
 A complete minesweeper game built with React (hooks) in TypeScript.
 
-[Play Now!](https://admiring-davinci-96f9e2.netlify.com/)
+[Play Now!](https://nostalgic-booth-41a891.netlify.com/)
 
 ![screenshot](screenshot.png)
 
