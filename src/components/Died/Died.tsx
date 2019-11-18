@@ -1,18 +1,25 @@
-import * as React  from 'react'
+import * as React from 'react'
 import { useEffect, useRef, useState, useCallback } from 'react'
 import './died.scss'
 import { randomIntFromInterval } from '../../utils'
 import cEtaitSurEnfait from './video.mp4'
 
-function Died({ hasLost, retry, isVolumeEnabled, status }) {
-  const [isShowingActions, setIsShowingActions] = useState(false)
-  const [audio, setAudio] = useState(randomIntFromInterval(1, 3))
-  const [forceHide, setForceHide] = useState(false)
-  const audioA = useRef(null)
-  const audioB = useRef(null)
+type DiedProps = {
+  hasLost: boolean
+  isVolumeEnabled: boolean
+  retry: any
+  status: string
+}
+
+function Died({ hasLost, retry, isVolumeEnabled, status }: DiedProps): JSX.Element {
+  const [isShowingActions, setIsShowingActions] = useState<boolean>(false)
+  const [audio, setAudio] = useState<number>(randomIntFromInterval(1, 3))
+  const [forceHide, setForceHide] = useState<boolean>(false)
+  const audioA = useRef<HTMLAudioElement>(null)
+  const audioB = useRef<HTMLAudioElement>(null)
 
   const handleEscape = useCallback(
-    e => {
+    (e: KeyboardEvent) => {
       if (e.keyCode === 27) retry()
     },
     [retry]
@@ -20,7 +27,7 @@ function Died({ hasLost, retry, isVolumeEnabled, status }) {
 
   useEffect(() => {
     if (hasLost) document.body.addEventListener('keydown', handleEscape)
-    return () => {
+    return (): void => {
       document.body.removeEventListener('keydown', handleEscape)
     }
   }, [handleEscape, hasLost])
@@ -32,17 +39,17 @@ function Died({ hasLost, retry, isVolumeEnabled, status }) {
 
   useEffect(() => {
     if (hasLost) {
-      const audioACurrent = audioA.current
-      const audioBCurrent = audioB.current
-      let timeout
+      const audioACurrent: HTMLAudioElement = audioA.current
+      const audioBCurrent: HTMLAudioElement = audioB.current
+      let timeout: number
       if (audio === 1) {
         audioACurrent.play()
-        timeout = setTimeout(() => setIsShowingActions(true), 6000)
+        timeout = window.setTimeout(() => setIsShowingActions(true), 6000)
       }
       if (audio === 2) {
         audioBCurrent.play()
       }
-      return () => {
+      return (): void => {
         clearTimeout(timeout)
         if (audioACurrent) audioACurrent.pause()
         if (audioBCurrent) audioBCurrent.pause()
@@ -63,7 +70,7 @@ function Died({ hasLost, retry, isVolumeEnabled, status }) {
             <button type="button" onClick={retry} className="retry-button">
               Retry
             </button>
-            <button type="button" onClick={() => setForceHide(true)} className="see-result-button">
+            <button type="button" onClick={(): void => setForceHide(true)} className="see-result-button">
               See result
             </button>
           </>

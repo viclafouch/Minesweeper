@@ -4,9 +4,10 @@ import { DefaultContext } from '../store/DefaultContext'
 import { SET_OPTIONS } from '../store/reducer/constants'
 import { EASY_GAME, NORMAL_GAME, HARD_GAME } from '../constants'
 
-function Menu() {
+function Menu(): JSX.Element {
   const [, dispatch] = useContext(DefaultContext)
-  const handleClick = difficulty => {
+
+  const handleClick = (difficulty: number): void => {
     let options = {}
     if (difficulty === 1) {
       options = { ...EASY_GAME }
@@ -24,13 +25,13 @@ function Menu() {
   return (
     <div className="Menu">
       <div>Choose difficulty</div>
-      <button type="button" onClick={() => handleClick(1)} tabIndex={0}>
+      <button type="button" onClick={(): void => handleClick(1)} tabIndex={0}>
         Easy
       </button>
-      <button type="button" onClick={() => handleClick(2)} tabIndex={0}>
+      <button type="button" onClick={(): void => handleClick(2)} tabIndex={0}>
         Medium
       </button>
-      <button type="button" onClick={() => handleClick(3)} tabIndex={0}>
+      <button type="button" onClick={(): void => handleClick(3)} tabIndex={0}>
         Hard
       </button>
     </div>

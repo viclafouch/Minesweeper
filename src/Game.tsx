@@ -7,15 +7,10 @@ import Menu from './containers/Menu'
 import Controls from './containers/Controls'
 import { SET_OPTIONS, SET_STATUS } from './store/reducer/constants'
 
-interface ITodo {
-  text: string;
-  complete: boolean;
-}
-
-function Game() {
+const Game: React.FunctionComponent = () => {
   const [state, dispatch] = React.useContext(DefaultContext)
 
-  const resetGame = () => {
+  const resetGame = (): any => {
     dispatch({
       type: SET_OPTIONS,
       options: null
@@ -38,8 +33,13 @@ function Game() {
         )}
       </div>
 
-      <Won hasWon={state.status === 'won'} isVolumeEnabled={state.isVolumeEnabled} reset={() => resetGame()} />
-      <Died hasLost={state.status === 'lost'} status={state.status} isVolumeEnabled={state.isVolumeEnabled} retry={() => resetGame()} />
+      <Won hasWon={state.status === 'won'} isVolumeEnabled={state.isVolumeEnabled} reset={(): any => resetGame()} />
+      <Died
+        hasLost={state.status === 'lost'}
+        status={state.status}
+        isVolumeEnabled={state.isVolumeEnabled}
+        retry={(): any => resetGame()}
+      />
     </div>
   )
 }

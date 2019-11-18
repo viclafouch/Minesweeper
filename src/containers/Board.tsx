@@ -5,27 +5,34 @@ import { initBoard, getAreaItem } from '../utils/helpers'
 import { DefaultContext } from '../store/DefaultContext'
 import { SET_STATUS, SET_OPTIONS } from '../store/reducer/constants'
 import { randomIntFromInterval } from '../utils'
+import Item from '../Item'
 
-function Board({ x: w, y: h, mines }) {
-  const [audio, setAudio] = useState(null)
-  const audioA = useRef(null)
-  const audioB = useRef(null)
-  const audioC = useRef(null)
-  const audioD = useRef(null)
-  const [rows, setRows] = useState(initBoard(w, h, mines))
+type BoardProps = {
+  x: number
+  y: number
+  mines: number
+}
+
+function Board({ x: w, y: h, mines }: BoardProps): JSX.Element {
+  const [audio, setAudio] = useState<number | null>(null)
+  const audioA = useRef<HTMLAudioElement>(null)
+  const audioB = useRef<HTMLAudioElement>(null)
+  const audioC = useRef<HTMLAudioElement>(null)
+  const audioD = useRef<HTMLAudioElement>(null)
+  const [rows, setRows] = useState<Array<Item> | any>(initBoard(w, h, mines))
   const [{ options, isDebugging, isVolumeEnabled }, dispatch] = useContext(DefaultContext)
 
   useLayoutEffect(() => {
     if (!isVolumeEnabled) return
-    const audioACurrent = audioA.current
-    const audioBCurrent = audioB.current
-    const audioCCurrent = audioC.current
-    const audioDCurrent = audioD.current
+    const audioACurrent: HTMLAudioElement = audioA.current
+    const audioBCurrent: HTMLAudioElement = audioB.current
+    const audioCCurrent: HTMLAudioElement = audioC.current
+    const audioDCurrent: HTMLAudioElement = audioD.current
     if (audio === 1) audioACurrent.play()
     if (audio === 2) audioBCurrent.play()
     if (audio === 3) audioCCurrent.play()
     if (audio === 4) audioDCurrent.play()
-    return () => {
+    return (): void => {
       audioACurrent.pause()
       audioBCurrent.pause()
       audioCCurrent.pause()
@@ -37,20 +44,23 @@ function Board({ x: w, y: h, mines }) {
     }
   }, [audio, isVolumeEnabled])
 
-  const showResult = () => {
+  const showResult = (): void => {
     setRows(
-      rows.map(row =>
-        row.map(item => {
-          item.isVisible = true
-          return item
-        })
+      rows.map(
+        (row: Array<Item>): Array<Item> =>
+          row.map(
+            (item: Item): Item => {
+              item.isVisible = true
+              return item
+            }
+          )
       )
     )
   }
 
-  const showEmptyItem = item => {
-    const updatedRows = [...rows]
-    const area = getAreaItem({ x: item.x, y: item.y, w, h, rows })
+  const showEmptyItem = (item: Item): Array<Array<Item>> => {
+    const updatedRows: Array<Array<Item>> = [...rows]
+    const area: Array<Item> = getAreaItem({ x: item.x, y: item.y, w, h, rows })
     for (const siblingItems of area) {
       if (!siblingItems.isVisible && !siblingItems.isFlagged && (siblingItems.isEmpty || !siblingItems.isMine)) {
         updatedRows[siblingItems.x][siblingItems.y].isVisible = true
@@ -60,16 +70,20 @@ function Board({ x: w, y: h, mines }) {
     return updatedRows
   }
 
-  const handleAddFlag = (e, item) => {
+  const handleAddFlag = (e: Event, item: Item): void => {
     e.preventDefault()
     if (item.isVisible || isDebugging) return null
     if (!item.isFlagged && !options.flags) return
+
     const updatedRows = [...rows]
     updatedRows[item.x][item.y].isFlagged = !updatedRows[item.x][item.y].isFlagged
-    let nbFlagged = options.flags
+
+    let nbFlagged: number = options.flags
     if (updatedRows[item.x][item.y].isFlagged) nbFlagged -= 1
     else nbFlagged += 1
+
     setRows(updatedRows)
+
     dispatch({
       type: SET_OPTIONS,
       options: {
@@ -77,11 +91,14 @@ function Board({ x: w, y: h, mines }) {
         flags: nbFlagged
       }
     })
+
+    return
   }
 
-  const handleSelectCell = item => {
-    let updatedRows = [...rows]
+  const handleSelectCell = (item: Item): void => {
+    let updatedRows: Array<any> | any = [...rows]
     if (item.isVisible || isDebugging) return null
+
     if (item.isMine) {
       dispatch({
         type: SET_STATUS,
@@ -93,6 +110,7 @@ function Board({ x: w, y: h, mines }) {
 
     setAudio(null)
     updatedRows[item.x][item.y].isVisible = true
+
     if (updatedRows[item.x][item.y].isFlagged) {
       updatedRows[item.x][item.y].isFlagged = false
       dispatch({
@@ -120,7 +138,7 @@ function Board({ x: w, y: h, mines }) {
     setRows(updatedRows)
   }
 
-  const cssVar = { "--columns": h, '--rows': w } as React.CSSProperties
+  const cssVar = { '--columns': h, '--rows': w } as React.CSSProperties
 
   return (
     <>
@@ -130,8 +148,8 @@ function Board({ x: w, y: h, mines }) {
             <Cell
               isDebugging={isDebugging}
               key={item.x * row.length + item.y}
-              onClick={() => handleSelectCell(item)}
-              onContextMenu={e => handleAddFlag(e, item)}
+              onClick={(): void => handleSelectCell(item)}
+              onContextMenu={(e: Event): void => handleAddFlag(e, item)}
               value={item}
             />
           ))

@@ -5,7 +5,11 @@ import { TOGGLE_DEBUGGING, TOGGLE_AUDIO } from '../store/reducer/constants'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faVolumeUp, faVolumeMute } from '@fortawesome/free-solid-svg-icons'
 
-function Controls({ reset }) {
+type ControlsProps = {
+  reset: any
+}
+
+function Controls({ reset }: ControlsProps): JSX.Element {
   const [{ options, isDebugging, isVolumeEnabled, status }, dispatch] = useContext(DefaultContext)
 
   return (
@@ -16,7 +20,7 @@ function Controls({ reset }) {
       {status === 'in progress' && (
         <button
           type="button"
-          onClick={() =>
+          onClick={(): void =>
             dispatch({
               type: TOGGLE_DEBUGGING
             })
@@ -33,7 +37,7 @@ function Controls({ reset }) {
 
       <button
         type="button"
-        onClick={() =>
+        onClick={(): void =>
           dispatch({
             type: TOGGLE_AUDIO
           })

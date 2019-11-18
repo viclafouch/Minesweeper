@@ -1,10 +1,16 @@
 import * as React from 'react'
+import Item from '../../Item'
 import './cell.scss'
 
-function Mine(props) {
-  const { value, isDebugging, onClick, onContextMenu } = props
+type CellProps = {
+  value: Item
+  isDebugging: boolean
+  onClick: any
+  onContextMenu: any
+}
 
-  const getValue = () => {
+function Cell({ value, isDebugging, onClick, onContextMenu }: CellProps): JSX.Element {
+  const getValue = (): string | number | null => {
     if (isDebugging) {
       if (value.isMine) return '💣'
       return value.mines ? value.mines : ''
@@ -18,7 +24,7 @@ function Mine(props) {
   return (
     <div
       onClick={onClick}
-      onKeyPress={event => event.key === 'Enter' && onClick()}
+      onKeyPress={(event): void => event.key === 'Enter' && onClick()}
       onContextMenu={onContextMenu}
       className={`Cell ${value.isVisible ? 'is-revealed' : ''}`}
       tabIndex={0}
@@ -29,4 +35,4 @@ function Mine(props) {
   )
 }
 
-export default Mine
+export default Cell
