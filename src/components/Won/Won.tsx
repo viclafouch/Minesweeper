@@ -1,4 +1,5 @@
-import React, { useEffect, useCallback } from 'react'
+import * as React from 'react'
+import { useEffect, useCallback } from 'react'
 import './won.scss'
 
 function Won({ hasWon, isVolumeEnabled, reset }) {
@@ -27,7 +28,6 @@ function Won({ hasWon, isVolumeEnabled, reset }) {
               title="win"
               src="https://www.youtube.com/embed/wzEa9aqq0iQ?controls=0&amp;start=4&autoplay=1"
               frameBorder="0"
-              autoPlay
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />

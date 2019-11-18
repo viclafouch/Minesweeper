@@ -1,7 +1,18 @@
 import { debug } from '../../utils/index'
 import { SET_STATUS, SET_OPTIONS, TOGGLE_DEBUGGING, TOGGLE_AUDIO } from './constants'
 
-const DefaultReducer = (state, action) => {
+interface Actions {
+  status: String;
+  options: Object;
+  type: String
+}
+
+interface Store {
+  isDebugging: Boolean;
+  isVolumeEnabled: Boolean
+}
+
+const DefaultReducer = (state: Store, action: Actions) => {
   debug(`TCL: DefaultReducer -> type : ${action.type}`)
   const { status, options, type } = action
   switch (type) {

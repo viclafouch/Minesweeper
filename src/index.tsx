@@ -1,7 +1,7 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
 import './scss/base.scss'
-import { DefaultProvider } from '@store/DefaultContext'
+import { DefaultProvider } from './store/DefaultContext'
 import Game from './Game'
 
 const isVolumeEnabled = localStorage.getItem('isVolumeEnabled')

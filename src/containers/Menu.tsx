@@ -1,7 +1,8 @@
-import React, { useContext } from 'react'
-import { DefaultContext } from '@store/DefaultContext'
-import { SET_OPTIONS } from '@store/reducer/constants'
-import { EASY_GAME, NORMAL_GAME, HARD_GAME } from '@/constants'
+import * as React from 'react'
+import { useContext } from 'react'
+import { DefaultContext } from '../store/DefaultContext'
+import { SET_OPTIONS } from '../store/reducer/constants'
+import { EASY_GAME, NORMAL_GAME, HARD_GAME } from '../constants'
 
 function Menu() {
   const [, dispatch] = useContext(DefaultContext)
@@ -23,13 +24,13 @@ function Menu() {
   return (
     <div className="Menu">
       <div>Choose difficulty</div>
-      <button type="button" onClick={() => handleClick(1)} tabIndex="0">
+      <button type="button" onClick={() => handleClick(1)} tabIndex={0}>
         Easy
       </button>
-      <button type="button" onClick={() => handleClick(2)} tabIndex="0">
+      <button type="button" onClick={() => handleClick(2)} tabIndex={0}>
         Medium
       </button>
-      <button type="button" onClick={() => handleClick(3)} tabIndex="0">
+      <button type="button" onClick={() => handleClick(3)} tabIndex={0}>
         Hard
       </button>
     </div>

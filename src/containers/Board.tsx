@@ -1,9 +1,10 @@
-import React, { useState, useContext, useRef, useLayoutEffect } from 'react'
-import Cell from '@components/Cell/Cell'
-import { initBoard, getAreaItem } from '@utils/helpers'
-import { DefaultContext } from '@store/DefaultContext'
-import { SET_STATUS, SET_OPTIONS } from '@store/reducer/constants'
-import { randomIntFromInterval } from '@utils'
+import * as React from 'react'
+import { useState, useContext, useRef, useLayoutEffect } from 'react'
+import Cell from '../components/Cell/Cell'
+import { initBoard, getAreaItem } from '../utils/helpers'
+import { DefaultContext } from '../store/DefaultContext'
+import { SET_STATUS, SET_OPTIONS } from '../store/reducer/constants'
+import { randomIntFromInterval } from '../utils'
 
 function Board({ x: w, y: h, mines }) {
   const [audio, setAudio] = useState(null)
@@ -119,9 +120,11 @@ function Board({ x: w, y: h, mines }) {
     setRows(updatedRows)
   }
 
+  const cssVar = { "--columns": h, '--rows': w } as React.CSSProperties
+
   return (
     <>
-      <div className="Board" style={{ '--columns': h, '--rows': w }}>
+      <div className="Board" style={cssVar}>
         {rows.map(row =>
           row.map(item => (
             <Cell

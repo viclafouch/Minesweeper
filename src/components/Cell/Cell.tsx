@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import './cell.scss'
 
 function Mine(props) {
@@ -21,7 +21,7 @@ function Mine(props) {
       onKeyPress={event => event.key === 'Enter' && onClick()}
       onContextMenu={onContextMenu}
       className={`Cell ${value.isVisible ? 'is-revealed' : ''}`}
-      tabIndex="0"
+      tabIndex={0}
       role="button"
     >
       <span>{getValue()}</span>

@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react'
+import * as React  from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import './died.scss'
-import { randomIntFromInterval } from '@utils/index'
-import cEtaitSurEnfait from './c-etait-sur-enfait.mp4'
+import { randomIntFromInterval } from '../../utils'
+import cEtaitSurEnfait from './video.mp4'
 
 function Died({ hasLost, retry, isVolumeEnabled, status }) {
   const [isShowingActions, setIsShowingActions] = useState(false)
