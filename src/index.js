@@ -12,7 +12,7 @@ ReactDOM.render(
       status: 'in progress',
       options: null,
       isDebugging: false,
-      isVolumeEnabled: isVolumeEnabled === undefined ? true : isVolumeEnabled === 'true'
+      isVolumeEnabled: !isVolumeEnabled ? true : isVolumeEnabled === 'true'
     }}
   >
     <Game />
