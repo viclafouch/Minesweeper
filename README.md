@@ -1,4 +1,4 @@
-# CheerzOrBoom (in Typescript)
+# Minesweeper
 
 A complete minesweeper game built with React (hooks) in TypeScript.
 
