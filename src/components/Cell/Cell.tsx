@@ -1,10 +1,16 @@
-import React from 'react'
+import * as React from 'react'
+import Item from '../../Item'
 import './cell.scss'
 
-function Cell(props) {
-  const { value, isDebugging, onClick, onContextMenu } = props
+type CellProps = {
+  value: Item
+  isDebugging: boolean
+  onClick: any
+  onContextMenu: any
+}
 
-  const getValue = () => {
+function Cell({ value, isDebugging, onClick, onContextMenu }: CellProps): JSX.Element {
+  const getValue = (): string | number | null => {
     if (isDebugging) {
       if (value.isMine) return '💣'
       return value.mines ? value.mines : ''
@@ -18,10 +24,10 @@ function Cell(props) {
   return (
     <div
       onClick={onClick}
-      onKeyPress={event => event.key === 'Enter' && onClick()}
+      onKeyPress={(event): void => event.key === 'Enter' && onClick()}
       onContextMenu={onContextMenu}
       className={`Cell ${value.isVisible ? 'is-revealed' : ''}`}
-      tabIndex="0"
+      tabIndex={0}
       role="button"
     >
       <span>{getValue()}</span>

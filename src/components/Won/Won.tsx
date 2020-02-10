@@ -1,9 +1,16 @@
-import React, { useEffect, useCallback } from 'react'
+import * as React from 'react'
+import { useEffect, useCallback } from 'react'
 import './won.scss'
 
-function Won({ hasWon, isVolumeEnabled, reset }) {
+type WonProps = {
+  hasWon: boolean
+  isVolumeEnabled: boolean
+  reset: any
+}
+
+const Won = ({ hasWon, isVolumeEnabled, reset }: WonProps): JSX.Element => {
   const handleEscape = useCallback(
-    e => {
+    (e: KeyboardEvent) => {
       if (e.keyCode === 27) reset()
     },
     [reset]
@@ -11,7 +18,7 @@ function Won({ hasWon, isVolumeEnabled, reset }) {
 
   useEffect(() => {
     if (hasWon) document.body.addEventListener('keydown', handleEscape)
-    return () => {
+    return (): void => {
       document.body.removeEventListener('keydown', handleEscape)
     }
   }, [handleEscape, hasWon])
@@ -27,7 +34,6 @@ function Won({ hasWon, isVolumeEnabled, reset }) {
               title="win"
               src="https://www.youtube.com/embed/wzEa9aqq0iQ?controls=0&amp;start=4&autoplay=1"
               frameBorder="0"
-              autoPlay
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />

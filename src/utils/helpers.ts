@@ -1,7 +1,20 @@
 import { randomIntFromInterval } from '.'
+import Item from '../Item'
 
-export const getAreaItem = ({ x, y, w, h, rows }) => {
-  const area = []
+export const getAreaItem = ({
+  x,
+  y,
+  w,
+  h,
+  rows
+}: {
+  x: number
+  y: number
+  w: number
+  h: number
+  rows: Array<Array<Item>>
+}): Array<Item> => {
+  const area: Array<Item> = []
   // Le doliprane de 1000 a été d'une grande aide
   if (x > 0) area.push(rows[x - 1][y]) // top
   if (y > 0) area.push(rows[x][y - 1]) // left
@@ -14,10 +27,9 @@ export const getAreaItem = ({ x, y, w, h, rows }) => {
   return area
 }
 
-export const initBoard = (h, w, mines) => {
-  const rows = []
+export const initBoard = (h: number, w: number, mines: number): Array<Array<Item>> => {
+  const rows: Array<Array<Item>> = []
   let minesPlanted = 0
-
   for (let i = 0; i < h; i += 1) {
     rows.push([])
     for (let j = 0; j < w; j += 1) {
@@ -34,8 +46,8 @@ export const initBoard = (h, w, mines) => {
   }
 
   while (minesPlanted < mines) {
-    const randomIntX = randomIntFromInterval(0, h - 1)
-    const randomIntY = randomIntFromInterval(0, w - 1)
+    const randomIntX: number = randomIntFromInterval(0, h - 1)
+    const randomIntY: number = randomIntFromInterval(0, w - 1)
     if (!rows[randomIntX][randomIntY].isMine) {
       rows[randomIntX][randomIntY].isMine = true
       minesPlanted += 1
@@ -45,7 +57,7 @@ export const initBoard = (h, w, mines) => {
   for (let x = 0; x < h; x += 1) {
     for (let y = 0; y < w; y += 1) {
       rows[x][y].mines = getAreaItem({ x, y, w, h, rows }).reduce(
-        (accumulator, currentValue) => (currentValue.isMine ? accumulator + 1 : accumulator),
+        (accumulator: number, currentValue: Item) => (currentValue.isMine ? accumulator + 1 : accumulator),
         0
       )
       rows[x][y].isEmpty = !rows[x][y].mines

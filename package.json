@@ -8,8 +8,10 @@
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@fortawesome/react-fontawesome": "^0.1.7",
     "@svgr/webpack": "4.3.2",
-    "@typescript-eslint/eslint-plugin": "^2.2.0",
-    "@typescript-eslint/parser": "^2.2.0",
+    "@types/jest": "^24.0.23",
+    "@types/node": "^12.12.8",
+    "@types/react": "^16.9.11",
+    "@types/react-dom": "^16.9.4",
     "babel-jest": "^24.9.0",
     "babel-loader": "8.0.6",
     "babel-plugin-named-asset-import": "^0.3.4",
@@ -51,6 +53,7 @@
     "style-loader": "1.0.0",
     "terser-webpack-plugin": "1.4.1",
     "ts-pnp": "1.1.4",
+    "typescript": "^3.7.2",
     "url-loader": "2.1.0",
     "webpack": "4.41.0",
     "webpack-dev-server": "3.2.1",
@@ -128,17 +131,12 @@
     ]
   },
   "devDependencies": {
-    "@viclafouch/eslint-config-viclafouch": "^1.0.2",
+    "@typescript-eslint/eslint-plugin": "^2.7.0",
+    "@typescript-eslint/parser": "^2.7.0",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.6.0",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-prettier": "^6.5.0",
-    "eslint-plugin-html": "^6.0.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-config-prettier": "^6.6.0",
     "eslint-plugin-prettier": "^3.1.1",
-    "eslint-plugin-react": "^7.16.0",
-    "eslint-plugin-react-hooks": "^2.2.0",
     "prettier": "^1.19.1"
   }
 }

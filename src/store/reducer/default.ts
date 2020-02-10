@@ -1,7 +1,12 @@
 import { debug } from '../../utils/index'
 import { SET_STATUS, SET_OPTIONS, TOGGLE_DEBUGGING, TOGGLE_AUDIO } from './constants'
+import { State } from '../DefaultContext'
 
-const DefaultReducer = (state, action) => {
+export interface Actions extends State {
+  type: string
+}
+
+const DefaultReducer: React.Reducer<State, Actions> = (state, action) => {
   debug(`TCL: DefaultReducer -> type : ${action.type}`)
   const { status, options, type } = action
   switch (type) {
