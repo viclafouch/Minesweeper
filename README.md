@@ -27,7 +27,7 @@ Seriously !?
 git clone this project, then.
 
 ```bash
-cd cheerzorboom
+cd Minesweeper
 git checkout in-typescript
 npm install
 npm start
